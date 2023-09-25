@@ -1,0 +1,18 @@
+---
+- name: Uninstall Nginx (if installed)
+  hosts: unangtarget
+  become: yes
+  tasks:
+    - name: Check if Nginx is installed
+      command: nginx -v
+      register: nginx_version
+      ignore_errors: yes
+
+    - name: Uninstall Nginx
+      yum:
+        name: nginx
+        state: absent
+
+    - name: Report Nginx status
+      debug:
+        msg: "Nginx {{ 'was' if nginx_version.failed == false else 'was not' }} uninstalled"
