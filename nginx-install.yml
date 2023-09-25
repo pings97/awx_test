@@ -1,6 +1,6 @@
 ---
 - name: nginx-install
-  hosts: all
+  hosts: unangtarget
   become: true
 
   tasks:
